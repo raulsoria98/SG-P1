@@ -9,6 +9,7 @@ import { TrackballControls } from '../libs/TrackballControls.js'
 
 import { MyCone } from './MyCone.js'
 import { MyBox } from './MyBox.js'
+import { MySphere } from './MySphere.js'
 
  
 /// La clase fachada del modelo
@@ -56,11 +57,19 @@ class MyScene extends THREE.Scene {
 
     this.box = new MyBox(this.gui, "Controles de la Caja")
     this.add (this.box);
-    this.box.position.set(0,4,7);
+    this.box.position.set(0,0,7);
     // Ejes
     this.axisBox = new THREE.AxesHelper (5);
     this.add (this.axisBox);
     this.axisBox.position.set(0,0,7);
+
+    this.sphere = new MySphere(this.gui, "Controles de la Esfera");
+    this.add (this.sphere);
+    this.sphere.position.set(7,7,0);
+    // Ejes
+    this.axisSphere = new THREE.AxesHelper (5);
+    this.add (this.axisSphere);
+    this.axisSphere.position.set(7,7,0);
   }
   
   createCamera () {
@@ -107,6 +116,7 @@ class MyScene extends THREE.Scene {
     this.add (ground);
   }
   
+  // TODO: Pregunta Se puede cambiar tamaño de GUI?
   createGUI () {
     // Se crea la interfaz gráfica de usuario
     var gui = new GUI();
@@ -205,6 +215,7 @@ class MyScene extends THREE.Scene {
     // Se actualiza el resto del modelo
     this.cone.update();
     this.box.update();
+    this.sphere.update();
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());

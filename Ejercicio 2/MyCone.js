@@ -47,8 +47,11 @@ class MyCone extends THREE.Object3D {
     // Estas lineas son las que añaden los componentes de la interfaz
     // Las tres cifras indican un valor mínimo, un máximo y el incremento
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
-    folder.add (this.guiControls, 'radio', 0.5, 5.0, 0.1).name ('Radio : ').listen();
-    folder.add (this.guiControls, 'altura', 0.5, 5.0, 0.1).name ('Altura : ').listen();
+    folder.add (this.guiControls, 'radio', 0.5, 5.0, 0.1).name ('Radio : ').listen().onChange(() => { this.updateGeometry() });
+    folder.add (this.guiControls, 'altura', 0.5, 5.0, 0.1).name ('Altura : ').listen().onChange(() => { 
+      this.updateGeometry()
+      this.mesh.position.y = this.mesh.geometry.parameters.height/2; // Es necesario para que se mantenga a ras del suelo
+    });
     folder.add (this.guiControls, 'segmentos', 5, 20, 1).name ('Segmentos : ').listen().onChange(() => { this.updateGeometry() });
     
     folder.add (this.guiControls, 'reset').name ('[ Reset ]');
@@ -66,10 +69,10 @@ class MyCone extends THREE.Object3D {
     // Después, la rotación en Y
     // Luego, la rotación en X
     // Y por último la traslación
-    this.updateGeometry();
+    // this.updateGeometry();
 
     // Lo posicionamos a ras del suelo
-    this.mesh.position.y = this.mesh.geometry.parameters.height/2;
+    // this.mesh.position.y = this.mesh.geometry.parameters.height/2;
 
     // Ponemos movimiento
     this.mesh.rotation.x += 0.01;
