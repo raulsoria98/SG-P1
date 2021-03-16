@@ -12,6 +12,7 @@ class MySphere extends THREE.Object3D {
     var geom = new THREE.SphereGeometry (1,2,2);
     // Como material se crea uno a partir de un color
     var mat = new THREE.MeshNormalMaterial();
+    // var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
     // mat.flatShading = true;
     // mat.needsUpdate = true;
     
@@ -23,11 +24,11 @@ class MySphere extends THREE.Object3D {
     // Las geometrías se crean centradas en el origen.
     // Como queremos que el sistema de referencia esté en la base,
     // subimos el Mesh de la caja la mitad de su altura
-    // TODO: Pregunta: por qué aquí no me funciona?
-    // this.mesh.position.y = this.mesh.geometry.parameters.height/2;
+    this.mesh.position.y = this.mesh.geometry.parameters.radius;
   }
   
   createGUI (gui,titleGui) {
+    var that = this;
     // Controles para el tamaño, la orientación y la posición de la caja
     this.guiControls = new function () {
       this.radio = 1.0;
@@ -40,6 +41,9 @@ class MySphere extends THREE.Object3D {
         this.radio = 1.0;
         this.segmentosAncho = 2;
         this.segmentosAlto = 2;
+
+        that.updateGeometry();
+        that.mesh.position.y = that.mesh.geometry.parameters.radius; 
       }
     } 
     
@@ -48,7 +52,10 @@ class MySphere extends THREE.Object3D {
     // Estas lineas son las que añaden los componentes de la interfaz
     // Las tres cifras indican un valor mínimo, un máximo y el incremento
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
-    folder.add (this.guiControls, 'radio', 0.5, 5.0, 0.1).name ('Radio : ').listen().onChange(() => { this.updateGeometry() });
+    folder.add (this.guiControls, 'radio', 0.5, 5.0, 0.1).name ('Radio : ').listen().onChange(() => { 
+      this.updateGeometry();
+      this.mesh.position.y = this.mesh.geometry.parameters.radius; 
+    });
     folder.add (this.guiControls, 'segmentosAncho', 2, 30, 1).name ('Segmentos Ancho : ').listen().onChange(() => { this.updateGeometry() });
     folder.add (this.guiControls, 'segmentosAlto', 2, 30, 1).name ('Segmentos Alto : ').listen().onChange(() => { this.updateGeometry() });
     

@@ -12,6 +12,7 @@ class MyCone extends THREE.Object3D {
     var geom = new THREE.ConeGeometry (1,1,6);
     // Como material se crea uno a partir de un color
     var mat = new THREE.MeshNormalMaterial();
+    // var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
     // mat.flatShading = true;
     // mat.needsUpdate = false;
     
@@ -27,6 +28,7 @@ class MyCone extends THREE.Object3D {
   }
   
   createGUI (gui,titleGui) {
+    var that = this;
     // Controles para el tamaño, la orientación y la posición de la caja
     this.guiControls = new function () {
       this.radio = 1.0;
@@ -39,6 +41,9 @@ class MyCone extends THREE.Object3D {
         this.radio = 1.0;
         this.altura = 1.0;
         this.segmentos = 5.0;
+
+        that.updateGeometry();
+        that.mesh.position.y = that.mesh.geometry.parameters.height/2;
       }
     } 
     

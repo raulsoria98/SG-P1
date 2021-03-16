@@ -12,6 +12,7 @@ class MyBox extends THREE.Object3D {
     var geom = new THREE.BoxGeometry (1,1,1);
     // Como material se crea uno a partir de un color
     var mat = new THREE.MeshNormalMaterial();
+    // var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
 
     // TODO: merece la pena buffergeometry?
     // mat.flatShading = true;
@@ -94,7 +95,7 @@ class MyBox extends THREE.Object3D {
     // Y por último la traslación
     this.position.set (this.guiControls.posX,this.guiControls.posY,this.guiControls.posZ);
     this.rotation.set (this.guiControls.rotX,this.guiControls.rotY,this.guiControls.rotZ);
-    // TODO: Pregunta: Es buena práctica hacer aquí un updateGeometry?
+    // TODO: Pregunta: Es buena práctica hacer aquí un updateGeometry? o mejor todo .onChange
     this.updateGeometry(); // Para cambiar el tamaño
 
     // Para que se mantenga a ras de suelo

@@ -7,9 +7,7 @@ import { TrackballControls } from '../libs/TrackballControls.js'
 
 // Clases de mi proyecto
 
-import { MyCone } from './MyCone.js'
-import { MyBox } from './MyBox.js'
-import { MySphere } from './MySphere.js'
+import { Peon } from './Peon.js'
 
  
 /// La clase fachada del modelo
@@ -47,31 +45,8 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.cone = new MyCone(this.gui, "Controles del Cono");
-    this.add (this.cone);
-    // this.cone.position.set(7,0,0);
-    this.cone.translateX(7);
-    // Ejes
-    this.axisCone = new THREE.AxesHelper (5);
-    this.add (this.axisCone);
-    this.axisCone.position.set(7,0,0);
-
-    this.box = new MyBox(this.gui, "Controles de la Caja")
-    this.add (this.box);
-    // this.box.position.set(0,0,7);
-    this.box.translateZ(7);
-    // Ejes
-    this.axisBox = new THREE.AxesHelper (5);
-    this.add (this.axisBox);
-    this.axisBox.position.set(0,0,7);
-
-    this.sphere = new MySphere(this.gui, "Controles de la Esfera");
-    this.add (this.sphere);
-    this.sphere.position.set(7,7,0);
-    // Ejes
-    this.axisSphere = new THREE.AxesHelper (5);
-    this.add (this.axisSphere);
-    this.axisSphere.position.set(7,7,0);
+    this.peon = new Peon(this.gui, "Controles del Peón");
+    this.add (this.peon);
   }
   
   createCamera () {
@@ -104,7 +79,7 @@ class MyScene extends THREE.Scene {
     var geometryGround = new THREE.BoxGeometry (50,0.2,50);
     
     // El material se hará con una textura de madera
-    var texture = new THREE.TextureLoader().load('../imgs/marmol-blanco.jpg');
+    var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
     var materialGround = new THREE.MeshPhongMaterial ({map: texture});
     
     // Ya se puede construir el Mesh
@@ -118,7 +93,6 @@ class MyScene extends THREE.Scene {
     this.add (ground);
   }
   
-  // TODO: Pregunta Se puede cambiar tamaño de GUI?
   createGUI () {
     // Se crea la interfaz gráfica de usuario
     var gui = new GUI();
@@ -215,9 +189,7 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
     
     // Se actualiza el resto del modelo
-    this.cone.update();
-    this.box.update();
-    this.sphere.update();
+    this.peon.update();
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
