@@ -118,10 +118,9 @@ class MyScene extends THREE.Scene {
     this.add (ground);
   }
   
-  // TODO: Pregunta Se puede cambiar tamaño de GUI?
   createGUI () {
     // Se crea la interfaz gráfica de usuario
-    var gui = new GUI();
+    var gui = new GUI({width:400});
     
     // La escena le va a añadir sus propios controles. 
     // Se definen mediante una   new function()

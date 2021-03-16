@@ -9,7 +9,7 @@ class MySphere extends THREE.Object3D {
     this.createGUI(gui,titleGui);
     
     // Un Mesh se compone de geometría y material
-    var geom = new THREE.SphereGeometry (1,2,2);
+    var geom = new THREE.SphereBufferGeometry (1,2,2);
     // Como material se crea uno a partir de un color
     var mat = new THREE.MeshNormalMaterial();
     // var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
@@ -63,7 +63,7 @@ class MySphere extends THREE.Object3D {
   }
 
   updateGeometry(){
-    var newGeometry = new THREE.SphereGeometry(this.guiControls.radio,this.guiControls.segmentosAncho,this.guiControls.segmentosAlto);
+    var newGeometry = new THREE.SphereBufferGeometry(this.guiControls.radio,this.guiControls.segmentosAncho,this.guiControls.segmentosAlto);
     this.mesh.geometry = newGeometry;
   }
   

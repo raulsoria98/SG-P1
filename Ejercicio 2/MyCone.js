@@ -9,7 +9,7 @@ class MyCone extends THREE.Object3D {
     this.createGUI(gui,titleGui);
     
     // Un Mesh se compone de geometría y material
-    var geom = new THREE.ConeGeometry (1,1,6);
+    var geom = new THREE.ConeBufferGeometry (1,1,6);
     // Como material se crea uno a partir de un color
     var mat = new THREE.MeshNormalMaterial();
     // var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
@@ -63,7 +63,7 @@ class MyCone extends THREE.Object3D {
   }
 
   updateGeometry(){
-    var newGeometry = new THREE.ConeGeometry(this.guiControls.radio,this.guiControls.altura,this.guiControls.segmentos);
+    var newGeometry = new THREE.ConeBufferGeometry(this.guiControls.radio,this.guiControls.altura,this.guiControls.segmentos);
     this.mesh.geometry = newGeometry;
   }
   

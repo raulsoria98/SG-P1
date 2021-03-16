@@ -9,12 +9,11 @@ class MyBox extends THREE.Object3D {
     this.createGUI(gui,titleGui);
     
     // Un Mesh se compone de geometría y material
-    var geom = new THREE.BoxGeometry (1,1,1);
+    var geom = new THREE.BoxBufferGeometry (1,1,1);
     // Como material se crea uno a partir de un color
     var mat = new THREE.MeshNormalMaterial();
     // var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
 
-    // TODO: merece la pena buffergeometry?
     // mat.flatShading = true;
     // mat.needsUpdate = true;
     
@@ -30,6 +29,7 @@ class MyBox extends THREE.Object3D {
   }
   
   createGUI (gui,titleGui) {
+    var that = this;
     // Controles para el tamaño, la orientación y la posición de la caja
     this.guiControls = new function () {
       this.sizeX = 1.0;
@@ -58,6 +58,9 @@ class MyBox extends THREE.Object3D {
         this.posX = 0.0;
         this.posY = 0.0;
         this.posZ = 7.0;
+
+        that.updateGeometry();
+        that.mesh.position.y = that.mesh.geometry.parameters.height/2;
       }
     } 
     
@@ -66,9 +69,9 @@ class MyBox extends THREE.Object3D {
     // Estas lineas son las que añaden los componentes de la interfaz
     // Las tres cifras indican un valor mínimo, un máximo y el incremento
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
-    folder.add (this.guiControls, 'sizeX', 0.1, 5.0, 0.1).name ('Tamaño X : ').listen();
-    folder.add (this.guiControls, 'sizeY', 0.1, 5.0, 0.1).name ('Tamaño Y : ').listen();
-    folder.add (this.guiControls, 'sizeZ', 0.1, 5.0, 0.1).name ('Tamaño Z : ').listen();
+    folder.add (this.guiControls, 'sizeX', 0.1, 5.0, 0.1).name ('Tamaño X : ').listen().onChange(() => { this.updateGeometry() });
+    folder.add (this.guiControls, 'sizeY', 0.1, 5.0, 0.1).name ('Tamaño Y : ').listen().onChange(() => { this.updateGeometry() });
+    folder.add (this.guiControls, 'sizeZ', 0.1, 5.0, 0.1).name ('Tamaño Z : ').listen().onChange(() => { this.updateGeometry() });
     
     folder.add (this.guiControls, 'rotX', 0.0, Math.PI/2, 0.1).name ('Rotación X : ').listen();
     folder.add (this.guiControls, 'rotY', 0.0, Math.PI/2, 0.1).name ('Rotación Y : ').listen();
@@ -82,7 +85,7 @@ class MyBox extends THREE.Object3D {
   }
 
   updateGeometry(){
-    var newGeometry = new THREE.BoxGeometry(this.guiControls.sizeX,this.guiControls.sizeY,this.guiControls.sizeZ);
+    var newGeometry = new THREE.BoxBufferGeometry(this.guiControls.sizeX,this.guiControls.sizeY,this.guiControls.sizeZ);
     this.mesh.geometry = newGeometry;
   }
   
@@ -95,11 +98,9 @@ class MyBox extends THREE.Object3D {
     // Y por último la traslación
     this.position.set (this.guiControls.posX,this.guiControls.posY,this.guiControls.posZ);
     this.rotation.set (this.guiControls.rotX,this.guiControls.rotY,this.guiControls.rotZ);
-    // TODO: Pregunta: Es buena práctica hacer aquí un updateGeometry? o mejor todo .onChange
-    this.updateGeometry(); // Para cambiar el tamaño
 
     // Para que se mantenga a ras de suelo
-    this.mesh.position.y = this.mesh.geometry.parameters.height/2;
+    // this.mesh.position.y = this.mesh.geometry.parameters.height/2;
 
     this.mesh.rotation.x += 0.01;
     this.mesh.rotation.y += 0.01;
