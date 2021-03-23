@@ -8,25 +8,34 @@ class Corazon extends THREE.Object3D {
     // Se crea primero porque otros métodos usan las variables que se definen para la interfaz
     this.createGUI(gui,titleGui);
     
-    const x = 0, y = 0;
     // Un Mesh se compone de geometría y material
     var heartShape = new THREE.Shape();
+    
+    // const x = 0, y = 0;
+    // heartShape.moveTo( x + 5, y + 5 );
+    // heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
+    // heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
+    // heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
+    // heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
+    // heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
+    // heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
 
-    heartShape.moveTo( x + 5, y + 5 );
-    heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
-    heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
-    heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
-    heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
-    heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
-    heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
+    heartShape.moveTo( 0, 0 );
+    heartShape.quadraticCurveTo(-0.3,0.3, -0.7,1);
+    heartShape.quadraticCurveTo(-1,1.5, -1.5,3);
+    heartShape.quadraticCurveTo(-2,5.5, 0,3.4);
+    heartShape.quadraticCurveTo(2,5.5, 1.5,3);
+    heartShape.quadraticCurveTo(1,1.5, 0.7,1);
+    heartShape.quadraticCurveTo(0.3,0.3, 0,0);
 
-    var options = { depth:8 }
+    var options = { depth:0.5, bevelThickness:1, bevelSize:1, bevelSegments:15, curveSegments:20 }
     var geom = new THREE.ExtrudeBufferGeometry(heartShape, options);
+    // var geom = new THREE.ShapeBufferGeometry(heartShape);
 
     // Como material se crea uno a partir de un color
-    var mat = new THREE.MeshNormalMaterial();
+    // var mat = new THREE.MeshNormalMaterial();
+    var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
     mat.side = THREE.DoubleSide;
-    // var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
     // mat.flatShading = true;
     // mat.needsUpdate = true;
     
@@ -39,7 +48,7 @@ class Corazon extends THREE.Object3D {
     // Como queremos que el sistema de referencia esté en la base,
     // subimos el Mesh de la caja la mitad de su altura
     // this.mesh.position.y = this.mesh.geometry.parameters.height/2;
-    this.scale.set(0.25, 0.25, 0.25);
+    this.scale.set(0.5, 0.5, 0.5);
   }
   
   createGUI (gui,titleGui) {
@@ -117,7 +126,7 @@ class Corazon extends THREE.Object3D {
     // this.mesh.position.y = this.mesh.geometry.parameters.height/2;
 
     // Imprescindible para que el material sea smoth en vez de flat
-    this.mesh.geometry.computeVertexNormals();
+    // this.mesh.geometry.computeVertexNormals();
   }
 }
 
