@@ -7,8 +7,10 @@ import { TrackballControls } from '../libs/TrackballControls.js'
 
 // Clases de mi proyecto
 
-import { Corazon } from './Corazon.js'
-import { Diamante } from './Diamante.js'
+import { Heart } from './Heart.js'
+import { Diamond } from './Diamond.js'
+import { Spade } from './Spade.js'
+import { Club } from './Club.js'
 
  
 /// La clase fachada del modelo
@@ -46,15 +48,25 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.corazon = new Corazon();
-    this.corazon.position.x += 7;
-    this.corazon.position.y += 5;
-    this.add (this.corazon);
+    this.heart = new Heart();
+    this.heart.position.x += 5;
+    this.heart.position.y += 5;
+    this.add (this.heart);
 
-    this.diamante = new Diamante();
-    this.diamante.position.x += -7;
-    this.diamante.position.y += 5;
-    this.add(this.diamante);
+    this.diamond = new Diamond();
+    this.diamond.position.x += -5;
+    this.diamond.position.y += -5;
+    this.add(this.diamond);
+
+    this.spade = new Spade();
+    this.spade.position.x += -5;
+    this.spade.position.y += 5;
+    this.add(this.spade);
+
+    this.club = new Club();
+    this.club.position.x += 5;
+    this.club.position.y += -5;
+    this.add(this.club);
   }
   
   createCamera () {
@@ -64,7 +76,7 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (20, 10, 20);
+    this.camera.position.set (0, 0, 30);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,0,0);
     this.camera.lookAt(look);
@@ -112,6 +124,7 @@ class MyScene extends THREE.Scene {
       // En el contexto de una función   this   alude a la función
       this.lightIntensity = 0.5;
       this.axisOnOff = true;
+      this.animacion = false;
     }
 
     // Se crea una sección para los controles de esta clase
@@ -122,6 +135,8 @@ class MyScene extends THREE.Scene {
     
     // Y otro para mostrar u ocultar los ejes
     folder.add (this.guiControls, 'axisOnOff').name ('Mostrar ejes : ');
+
+    gui.add(this.guiControls, 'animacion').name('Animación: ');
     
     return gui;
   }
@@ -197,8 +212,10 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
     
     // Se actualiza el resto del modelo
-    this.corazon.update();
-    this.diamante.update();
+    this.heart.update(this.guiControls.animacion);
+    this.diamond.update(this.guiControls.animacion);
+    this.spade.update(this.guiControls.animacion);
+    this.club.update(this.guiControls.animacion);
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
