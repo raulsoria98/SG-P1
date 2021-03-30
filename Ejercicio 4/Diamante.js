@@ -1,32 +1,21 @@
 import * as THREE from '../libs/three.module.js'
  
-class Corazon extends THREE.Object3D {
+class Diamante extends THREE.Object3D {
   constructor(gui,titleGui) {
     super();
     
     // Un Mesh se compone de geometría y material
-    var heartShape = new THREE.Shape();
+    var diamondShape = new THREE.Shape();
+
+    diamondShape.moveTo( 0, 0 );
+    diamondShape.lineTo(-1.5, 2.75);
+    diamondShape.lineTo(0, 5.5);
+    diamondShape.lineTo(1.5, 2.75);
+    diamondShape.lineTo(0, 0);
     
-    // const x = 0, y = 0;
-    // heartShape.moveTo( x + 5, y + 5 );
-    // heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
-    // heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
-    // heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
-    // heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
-    // heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
-    // heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
-
-    heartShape.moveTo( 0, 0 );
-    heartShape.quadraticCurveTo(-0.3,0.3, -0.7,1);
-    heartShape.quadraticCurveTo(-1,1.5, -1.5,3);
-    heartShape.quadraticCurveTo(-2,5.5, 0,3.4);
-    heartShape.quadraticCurveTo(2,5.5, 1.5,3);
-    heartShape.quadraticCurveTo(1,1.5, 0.7,1);
-    heartShape.quadraticCurveTo(0.3,0.3, 0,0);
-
     var options = { depth:0.5, bevelThickness:1, bevelSize:1, bevelSegments:15, curveSegments:20 }
-    var geom = new THREE.ExtrudeBufferGeometry(heartShape, options);
-    // var geom = new THREE.ShapeBufferGeometry(heartShape);
+    var geom = new THREE.ExtrudeBufferGeometry(diamondShape, options);
+    // var geom = new THREE.ShapeBufferGeometry(diamondShape);
 
     geom.scale(0.5, 0.5, 0.5);
 
@@ -46,7 +35,6 @@ class Corazon extends THREE.Object3D {
     // Como queremos que el sistema de referencia esté en la base,
     // subimos el Mesh de la caja la mitad de su altura
     // this.mesh.position.y = this.mesh.geometry.parameters.height/2;
-    // this.scale.set(0.5, 0.5, 0.5);
   }
   
   update () {
@@ -59,7 +47,7 @@ class Corazon extends THREE.Object3D {
 
     // this.mesh.rotation.y += 0.01;
     // TODO: Pregunta: Cómo hago que gire sobre si mismo, sigue girando sobre el eje Y, en la documentacion pone que object3D.rotation son angulos de euler
-    // this.rotateOnAxis(new THREE.Vector3(0,0,1), 0.01);
+    // this.rotateOnAxis(new THREE.Vector3(0,1,0), 0.01);
 
     // Para que se mantenga a ras de suelo
     // this.mesh.position.y = this.mesh.geometry.parameters.height/2;
@@ -69,4 +57,4 @@ class Corazon extends THREE.Object3D {
   }
 }
 
-export { Corazon };
+export { Diamante };

@@ -8,6 +8,7 @@ import { TrackballControls } from '../libs/TrackballControls.js'
 // Clases de mi proyecto
 
 import { Corazon } from './Corazon.js'
+import { Diamante } from './Diamante.js'
 
  
 /// La clase fachada del modelo
@@ -45,8 +46,15 @@ class MyScene extends THREE.Scene {
     // Por último creamos el modelo.
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
-    this.corazon = new Corazon(this.gui, "Controles del Peón");
+    this.corazon = new Corazon();
+    this.corazon.position.x += 7;
+    this.corazon.position.y += 5;
     this.add (this.corazon);
+
+    this.diamante = new Diamante();
+    this.diamante.position.x += -7;
+    this.diamante.position.y += 5;
+    this.add(this.diamante);
   }
   
   createCamera () {
@@ -190,6 +198,7 @@ class MyScene extends THREE.Scene {
     
     // Se actualiza el resto del modelo
     this.corazon.update();
+    this.diamante.update();
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());
