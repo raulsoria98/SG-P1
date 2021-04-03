@@ -11,6 +11,8 @@ import { Heart } from './Heart.js'
 import { Diamond } from './Diamond.js'
 import { Spade } from './Spade.js'
 import { Club } from './Club.js'
+import { BarridoHeart } from './BarridoHeart.js'
+import { BarridoClub } from './BarridoClub.js'
 
  
 /// La clase fachada del modelo
@@ -67,6 +69,14 @@ class MyScene extends THREE.Scene {
     this.club.position.x += 5;
     this.club.position.y += -5;
     this.add(this.club);
+
+    this.barridoClub = new BarridoClub();
+    this.barridoClub.position.x += 13;
+    this.add(this.barridoClub);
+
+    this.barridoHeart = new BarridoHeart();
+    this.barridoHeart.position.x += -13;
+    this.add(this.barridoHeart);
   }
   
   createCamera () {
@@ -216,6 +226,8 @@ class MyScene extends THREE.Scene {
     this.diamond.update(this.guiControls.animacion);
     this.spade.update(this.guiControls.animacion);
     this.club.update(this.guiControls.animacion);
+    this.barridoClub.update(this.guiControls.animacion);
+    this.barridoHeart.update(this.guiControls.animacion);
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());

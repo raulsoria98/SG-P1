@@ -65,7 +65,7 @@ class Spade extends THREE.Object3D {
 
     if(animacion)
       this.spade.rotation.y += 0.01;
-    // TODO: Pregunta: Cómo hago que gire sobre si mismo, sigue girando sobre el eje Y, en la documentacion pone que object3D.rotation son angulos de euler
+    // TODO: Pregunta: Cómo hago que gire sobre un eje, sigue girando sobre sobre si mismo, en la documentacion pone que object3D.rotation son angulos de euler
     // this.rotateOnAxis(new THREE.Vector3(0,0,1), 0.01);
 
     // Para que se mantenga a ras de suelo

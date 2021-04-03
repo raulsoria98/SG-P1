@@ -1,20 +1,11 @@
 import * as THREE from '../libs/three.module.js'
  
-class Heart extends THREE.Object3D {
+class BarridoHeart extends THREE.Object3D {
   constructor() {
     super();
     
     // Un Mesh se compone de geometría y material
     var heartShape = new THREE.Shape();
-    
-    // const x = 0, y = 0;
-    // heartShape.moveTo( x + 5, y + 5 );
-    // heartShape.bezierCurveTo( x + 5, y + 5, x + 4, y, x, y );
-    // heartShape.bezierCurveTo( x - 6, y, x - 6, y + 7,x - 6, y + 7 );
-    // heartShape.bezierCurveTo( x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19 );
-    // heartShape.bezierCurveTo( x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7 );
-    // heartShape.bezierCurveTo( x + 16, y + 7, x + 16, y, x + 10, y );
-    // heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
 
     heartShape.moveTo( 0, 0 );
     heartShape.quadraticCurveTo(-0.3,0.3, -0.7,1);
@@ -24,7 +15,18 @@ class Heart extends THREE.Object3D {
     heartShape.quadraticCurveTo(1,1.5, 0.7,1);
     heartShape.quadraticCurveTo(0.3,0.3, 0,0);
 
-    var options = { depth:0.5, bevelThickness:1, bevelSize:1, bevelSegments:15, curveSegments:20 }
+    var points = [
+      new THREE.Vector3(-2,10,0),
+      new THREE.Vector3(0,7,0),
+      new THREE.Vector3(-2,0,0),
+      new THREE.Vector3(0,-7,0),
+      new THREE.Vector3(-2,-10,0)
+    ]
+
+    var path = new THREE.CatmullRomCurve3(points);
+
+    // TODO: Pregunnta: Cómo se pone bisel a geometría por barrido?
+    var options = { bevelEnabled: true, depth:0.5, bevelThickness:1, bevelSize:1, bevelSegments:15, curveSegments:20, steps: 50, extrudePath: path };
     var geom = new THREE.ExtrudeBufferGeometry(heartShape, options);
     // var geom = new THREE.ShapeBufferGeometry(heartShape);
 
@@ -32,7 +34,7 @@ class Heart extends THREE.Object3D {
 
     // Como material se crea uno a partir de un color
     // var mat = new THREE.MeshNormalMaterial();
-    var mat = new THREE.MeshPhongMaterial({color: 0xCF0000});
+    var mat = new THREE.MeshPhongMaterial({color: 0x8800ff});
     mat.side = THREE.DoubleSide;
     // mat.flatShading = true;
     // mat.needsUpdate = true;
@@ -58,7 +60,7 @@ class Heart extends THREE.Object3D {
 
     if(animacion)
       this.mesh.rotation.y += 0.01;
-    // TODO: Pregunta: Cómo hago que gire sobre un eje, sigue girando sobre sobre si mismo, en la documentacion pone que object3D.rotation son angulos de euler
+    // TODO: Pregunta: Cómo hago que gire sobre un eje concreto, sigue girando sobre sobre si mismo, en la documentacion pone que object3D.rotation son angulos de euler
     // this.rotateOnAxis(new THREE.Vector3(0,0,1), 0.01);
 
     // Para que se mantenga a ras de suelo
@@ -69,4 +71,4 @@ class Heart extends THREE.Object3D {
   }
 }
 
-export { Heart };
+export { BarridoHeart };
