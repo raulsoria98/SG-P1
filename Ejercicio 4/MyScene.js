@@ -51,23 +51,23 @@ class MyScene extends THREE.Scene {
     // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
     // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
     this.heart = new Heart();
-    this.heart.position.x += 5;
-    this.heart.position.y += 5;
+    // this.heart.position.x += 5;
+    // this.heart.position.y += 5;
     this.add (this.heart);
 
     this.diamond = new Diamond();
-    this.diamond.position.x += -5;
-    this.diamond.position.y += -5;
+    // this.diamond.position.x += -5;
+    // this.diamond.position.y += -5;
     this.add(this.diamond);
 
     this.spade = new Spade();
-    this.spade.position.x += -5;
-    this.spade.position.y += 5;
+    // this.spade.position.x += -5;
+    // this.spade.position.y += 5;
     this.add(this.spade);
 
     this.club = new Club();
-    this.club.position.x += 5;
-    this.club.position.y += -5;
+    // this.club.position.x += 5;
+    // this.club.position.y += -5;
     this.add(this.club);
 
     this.barridoClub = new BarridoClub();

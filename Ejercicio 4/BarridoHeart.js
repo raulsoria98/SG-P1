@@ -25,7 +25,7 @@ class BarridoHeart extends THREE.Object3D {
 
     var path = new THREE.CatmullRomCurve3(points);
 
-    // TODO: Pregunnta: Cómo se pone bisel a geometría por barrido?
+    // TODO: Cómo se pone bisel a geometría por barrido?
     var options = { bevelEnabled: true, depth:0.5, bevelThickness:1, bevelSize:1, bevelSegments:15, curveSegments:20, steps: 50, extrudePath: path };
     var geom = new THREE.ExtrudeBufferGeometry(heartShape, options);
     // var geom = new THREE.ShapeBufferGeometry(heartShape);
@@ -35,7 +35,7 @@ class BarridoHeart extends THREE.Object3D {
     // Como material se crea uno a partir de un color
     // var mat = new THREE.MeshNormalMaterial();
     var mat = new THREE.MeshPhongMaterial({color: 0x8800ff});
-    mat.side = THREE.DoubleSide;
+    // mat.side = THREE.DoubleSide;
     // mat.flatShading = true;
     // mat.needsUpdate = true;
     
@@ -60,7 +60,6 @@ class BarridoHeart extends THREE.Object3D {
 
     if(animacion)
       this.mesh.rotation.y += 0.01;
-    // TODO: Pregunta: Cómo hago que gire sobre un eje concreto, sigue girando sobre sobre si mismo, en la documentacion pone que object3D.rotation son angulos de euler
     // this.rotateOnAxis(new THREE.Vector3(0,0,1), 0.01);
 
     // Para que se mantenga a ras de suelo

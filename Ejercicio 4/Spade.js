@@ -26,12 +26,9 @@ class Spade extends THREE.Object3D {
     // Como material se crea uno a partir de un color
     // var mat = new THREE.MeshNormalMaterial();
     var mat = new THREE.MeshPhongMaterial({color: 0x0000c7});
-    mat.side = THREE.DoubleSide;
+    mat.side = THREE.BackSide;
     // mat.flatShading = true;
     // mat.needsUpdate = true;
-    
-    // Ya podemos construir el Mesh
-    this.spade = new THREE.Mesh (geom, mat);
     
     var putnosPie = [
       new THREE.Vector2(0,0),
@@ -43,10 +40,20 @@ class Spade extends THREE.Object3D {
     
     var geomPie = new THREE.LatheBufferGeometry(putnosPie, 15, 0, 2*Math.PI);
     this.pie = new THREE.Mesh(geomPie, mat);
-    this.spade.add(this.pie);
 
+    // Ya podemos construir el Mesh
+    this.spade = new THREE.Mesh (geom, mat);
+    this.spade.add(this.pie);
+    this.padre = new THREE.Object3D();
+    this.abuelo = new THREE.Object3D();
+
+    this.abuelo.position.set(0,0,0);
+    this.padre.position.set(-5,5,0);
+    
     // Y añadirlo como hijo del Object3D (el this)
-    this.add (this.spade);
+    this.padre.add(this.spade);
+    this.abuelo.add(this.padre);
+    this.add (this.abuelo);
     
     // Las geometrías se crean centradas en el origen.
     // Como queremos que el sistema de referencia esté en la base,
@@ -63,9 +70,11 @@ class Spade extends THREE.Object3D {
     // Luego, la rotación en X
     // Y por último la traslación
 
-    if(animacion)
+    if(animacion) {
+      this.abuelo.rotation.z += 0.005;
+      this.padre.rotation.z -= 0.005;
       this.spade.rotation.y += 0.01;
-    // TODO: Pregunta: Cómo hago que gire sobre un eje, sigue girando sobre sobre si mismo, en la documentacion pone que object3D.rotation son angulos de euler
+    }
     // this.rotateOnAxis(new THREE.Vector3(0,0,1), 0.01);
 
     // Para que se mantenga a ras de suelo
