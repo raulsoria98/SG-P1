@@ -94,7 +94,7 @@ class MyScene extends THREE.Scene {
   
   createGUI () {
     // Se crea la interfaz gráfica de usuario
-    var gui = new GUI();
+    var gui = new GUI({width:350});
     
     // La escena le va a añadir sus propios controles. 
     // Se definen mediante una   new function()
