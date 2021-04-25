@@ -9,6 +9,7 @@ import { TrackballControls } from '../libs/TrackballControls.js'
 
 import { Taza } from './Taza.js'
 import { Escuadra } from './Escuadra.js';
+import { Tuerca } from './Tuerca.js';
 
  
 /// La clase fachada del modelo
@@ -51,8 +52,11 @@ class MyScene extends THREE.Scene {
     this.add(this.taza);
 
     this.escuadra = new Escuadra();
-    // this.escuadra.position.x += 10;
+    this.escuadra.position.x -= 7;
     this.add(this.escuadra);
+
+    this.tuerca = new Tuerca();
+    this.add(this.tuerca);
   }
   
   createCamera () {
@@ -62,7 +66,7 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (0, 0, 30);
+    this.camera.position.set (0, 10, 30);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,0,0);
     this.camera.lookAt(look);
@@ -200,6 +204,7 @@ class MyScene extends THREE.Scene {
     // Se actualiza el resto del modelo
     this.taza.update(this.guiControls.animacion);
     this.escuadra.update(this.guiControls.animacion);
+    this.tuerca.update(this.guiControls.animacion);
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());

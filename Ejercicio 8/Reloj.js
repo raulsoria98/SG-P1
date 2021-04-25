@@ -7,7 +7,6 @@ class Reloj extends THREE.Object3D {
     this.createGUI(gui, titleGui);
 
     var rojo = new THREE.MeshPhongMaterial({ color: 0xCF0000 });
-    var verde = new THREE.MeshPhongMaterial({ color: 0x00CF00 });
     var azul = new THREE.MeshPhongMaterial({ color: 0x0000CF });
 
     var geom_semiesfera = new THREE.SphereBufferGeometry(1, 15, 15, 0, Math.PI * 2, 0, Math.PI / 2);
@@ -37,14 +36,13 @@ class Reloj extends THREE.Object3D {
   }
   createGUI(gui, titleGui) {
     // Controles para el tamaño, la orientación y la posición de la caja
-    var that = this;
     this.guiControls = new function () {
-      this.velocidad = 0.1;
+      this.velocidad = 1.0;
 
       // Un botón para dejarlo todo en su posición inicial
       // Cuando se pulse se ejecutará esta función.
       this.reset = function () {
-        this.velocidad = 0.1;
+        this.velocidad = 1.0;
       }
     }
 
@@ -52,7 +50,7 @@ class Reloj extends THREE.Object3D {
     // Estas lineas son las que añaden los componentes de la interfaz
     // Las tres cifras indican un valor mínimo, un máximo y el incremento
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
-    folder.add(this.guiControls, 'velocidad', -12.0, 12.0, 1).name('Largo Grande : ').listen();
+    folder.add(this.guiControls, 'velocidad', -12.0, 12.0, 1).name('Velocidad (marcas / s): ').listen();
 
     folder.add(this.guiControls, 'reset').name('[ Reset ]');
   }
