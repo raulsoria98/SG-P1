@@ -26,14 +26,11 @@ class Reloj extends THREE.Object3D {
 
     this.aguja = new THREE.Mesh(geom_aguja, azul);
 
-    this.aguja.rotation.y = -((Math.PI * 2) / 12) * 2;
-
     this.add(this.aguja);
+
+    this.tiempoAnterior = Date.now();
   }
 
-  degToRad(deg) {
-    return deg * (Math.PI / 180);
-  }
   createGUI(gui, titleGui) {
     // Controles para el tamaño, la orientación y la posición de la caja
     this.guiControls = new function () {
@@ -55,8 +52,14 @@ class Reloj extends THREE.Object3D {
     folder.add(this.guiControls, 'reset').name('[ Reset ]');
   }
 
-  update(animacion) {
+  update() {
+      var tiempoActual = Date.now();
+  
+      var segundos = (tiempoActual - this.tiempoAnterior) / 1000;
+  
+      this.aguja.rotation.y += -((Math.PI * 2) / 12) * this.guiControls.velocidad * segundos;
 
+      this.tiempoAnterior = tiempoActual;
   }
 }
 

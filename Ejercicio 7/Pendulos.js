@@ -63,6 +63,7 @@ class Pendulos extends THREE.Object3D {
   degToRad(deg) {
     return deg * (Math.PI / 180);
   }
+  
   createGUI(gui, titleGui) {
     // Controles para el tamaño, la orientación y la posición de la caja
     var that = this;
